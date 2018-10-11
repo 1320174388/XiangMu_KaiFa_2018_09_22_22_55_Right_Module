@@ -38,7 +38,7 @@ CREATE TABLE `data_right_lists` (
   `right_name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `right_class` int(10) DEFAULT NULL,
   `right_url` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `right_route` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `right_route` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `right_info` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`right_id`),
   KEY `index` (`right_name`,`right_class`)
