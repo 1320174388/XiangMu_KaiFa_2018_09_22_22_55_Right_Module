@@ -8,6 +8,7 @@
  *  历史记录 :  -----------------------
  */
 namespace app\right_module\working_version\v1\dao;
+use app\right_module\working_version\v1\model\UserModel;
 use app\right_module\working_version\v1\model\AdminModel;
 
 class IsadminDao implements IsadminInterface
@@ -22,12 +23,21 @@ class IsadminDao implements IsadminInterface
      */
     public function isadminSelect($get)
     {
+        // 处理数据
+        $resArr = [];
+        // 获取最高管理员数据
+        $user = UserModel::get(1);
+        if($user['user_token']==$get['admin_token']){
+            $resArr[] = [
+                'right_class'=>0,
+                'admin_class'=>0,
+                'admin_types'=>true,
+            ];
+        }
         // TODO :  AdminModel 模型
         $adminList = AdminModel::where(
             'admin_token',$get['admin_token']
         )->select()->toArray();
-        // 处理数据
-        $resArr = [];
         foreach($adminList as $value){
             $resArr[] = [
                 'right_class'=>$value['right_class'],
@@ -37,6 +47,6 @@ class IsadminDao implements IsadminInterface
         }
 
         // 处理函数返回值
-        return \RSD::wxReponse($adminList,'M',$resArr,'当前管理员没有任何权限');
+        return \RSD::wxReponse($resArr,'M',$resArr,'当前管理员没有任何权限');
     }
 }
